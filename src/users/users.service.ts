@@ -9,7 +9,14 @@ import { DeleteUserInput } from './dto/input/delete-user.input';
 
 @Injectable()
 export class UsersService {
-  private users: User[] = [];
+  private users: User[] = [
+    {
+      email: 'szewczyk@gmail.com',
+      password: 'lilusia',
+      userId: '3333',
+      age: 12,
+    },
+  ];
 
   createUser(createUserData: CreateUserInput): User {
     const user: User = {
@@ -35,6 +42,10 @@ export class UsersService {
 
   getUsers(getUsersArgs: GetUsersArgs): User[] {
     return getUsersArgs.userIds.map((userId) => this.getUser({ userId }));
+  }
+
+  getUserByEmail(email: string): User | undefined {
+    return this.users.find((user) => user.email === email);
   }
 
   deleteUser(deleteUser: DeleteUserInput): User {
